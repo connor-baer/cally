@@ -25,7 +25,7 @@ function cx(map: Record<string, boolean | null | undefined>) {
 
 const isLTR = (e: Event) => (e.target as HTMLElement).matches(":dir(ltr)");
 
-const dayOptions = { month: "long", day: "numeric" } as const;
+const dayOptions = { month: "long", day: "numeric", weekday: "long" } as const;
 const monthOptions = { month: "long" } as const;
 const shortDayOptions = { weekday: "narrow" } as const;
 const longDayOptions = { weekday: "long" } as const;
