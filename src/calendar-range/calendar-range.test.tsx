@@ -54,8 +54,8 @@ describe("CalendarRange", () => {
       await click(nextMonth);
       await click(nextMonth);
 
-      await clickDay(month, "19 April");
-      await clickDay(month, "22 April");
+      await clickDay(month, "Sunday, 19 April");
+      await clickDay(month, "Wednesday, 22 April");
 
       expect(spy.count).to.eq(1);
       expect(spy.last[0].target.value).to.eq("2020-04-19/2020-04-22");
@@ -74,8 +74,8 @@ describe("CalendarRange", () => {
       await click(nextMonth);
       await click(nextMonth);
 
-      await clickDay(month, "22 April");
-      await clickDay(month, "19 April");
+      await clickDay(month, "Wednesday, 22 April");
+      await clickDay(month, "Sunday, 19 April");
 
       expect(spy.count).to.eq(1);
       expect(spy.last[0].target.value).to.eq("2020-04-19/2020-04-22");
@@ -174,8 +174,8 @@ describe("CalendarRange", () => {
       const month = getMonth(calendar);
       await click(getPrevPageButton(calendar));
 
-      await clickDay(month, "31 December");
-      await clickDay(month, "30 December");
+      await clickDay(month, "Friday, 31 December");
+      await clickDay(month, "Thursday, 30 December");
 
       expect(spy.count).to.eq(1);
       const target = spy.last[0].target as InstanceType<typeof CalendarRange>;
@@ -197,12 +197,12 @@ describe("CalendarRange", () => {
       const month = getMonth(calendar);
       await click(getPrevPageButton(calendar));
 
-      await clickDay(month, "31 December");
+      await clickDay(month, "Friday, 31 December");
       expect(startSpy.count).to.eq(1);
       expect(startSpy.last[0].detail).to.eql(new Date("2021-12-31"));
       expect(endSpy.called).to.eq(false);
 
-      await clickDay(month, "30 December");
+      await clickDay(month, "Thursday, 30 December");
       expect(startSpy.count).to.eq(1);
       expect(endSpy.count).to.eq(1);
       expect(endSpy.last[0].detail).to.eql(new Date("2021-12-30"));

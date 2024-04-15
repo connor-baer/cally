@@ -101,7 +101,10 @@ describe("CalendarMonth", () => {
 
         expect(selected.length).to.eq(1);
         expect(selected[0]).to.have.trimmed.text("2");
-        expect(selected[0]).to.have.attribute("aria-label", "2 January");
+        expect(selected[0]).to.have.attribute(
+          "aria-label",
+          "Thursday, 2 January"
+        );
       });
 
       it("uses a roving tab index", async () => {
@@ -121,7 +124,10 @@ describe("CalendarMonth", () => {
           grid.querySelectorAll<HTMLButtonElement>(`[tabindex="0"]`);
         expect(focusable.length).to.eq(1);
         expect(focusable[0]).to.have.trimmed.text("1");
-        expect(focusable[0]).to.have.attribute("aria-label", "1 January");
+        expect(focusable[0]).to.have.attribute(
+          "aria-label",
+          "Wednesday, 1 January"
+        );
       });
 
       it("correctly abbreviates the shortened day names");
@@ -135,7 +141,7 @@ describe("CalendarMonth", () => {
         <Fixture focusedDate={PlainDate.from("2020-04-01")} onselectday={spy} />
       );
 
-      await clickDay(calendar, "19 April");
+      await clickDay(calendar, "Sunday, 19 April");
 
       expect(spy.count).to.eq(1);
       expect(spy.last[0].detail.toString()).to.eq("2020-04-19");
@@ -151,7 +157,7 @@ describe("CalendarMonth", () => {
         />
       );
 
-      await clickDay(calendar, "4 January");
+      await clickDay(calendar, "Saturday, 4 January");
 
       expect(spy.called).to.eq(false);
     });
@@ -407,11 +413,11 @@ describe("CalendarMonth", () => {
       );
 
       // try clicking a day outside the range
-      await clickDay(month, "1 January");
+      await clickDay(month, "Wednesday, 1 January");
       expect(spy.called).to.eq(false);
 
       // click a day inside the range
-      await clickDay(month, "2 January");
+      await clickDay(month, "Thursday, 2 January");
 
       expect(spy.count).to.eq(1);
       expect(spy.last[0].detail.toString()).to.eq("2020-01-02");
@@ -428,11 +434,11 @@ describe("CalendarMonth", () => {
       );
 
       // try clicking a day outside the range
-      await clickDay(month, "31 January");
+      await clickDay(month, "Friday, 31 January");
       expect(spy.called).to.eq(false);
 
       // click a day inside the range
-      await clickDay(month, "30 January");
+      await clickDay(month, "Thursday, 30 January");
 
       expect(spy.count).to.eq(1);
       expect(spy.last[0].detail.toString()).to.eq("2020-01-30");
@@ -450,15 +456,15 @@ describe("CalendarMonth", () => {
       );
 
       // try clicking a day less than min
-      await clickDay(month, "1 January");
+      await clickDay(month, "Wednesday, 1 January");
       expect(spy.called).to.eq(false);
 
       // try clicking a day greater than max
-      await clickDay(month, "31 January");
+      await clickDay(month, "Friday, 31 January");
       expect(spy.called).to.eq(false);
 
       // click a day inside the range
-      await clickDay(month, "30 January");
+      await clickDay(month, "Thursday, 30 January");
       expect(spy.count).to.eq(1);
       expect(spy.last[0].detail.toString()).to.eq("2020-01-30");
     });

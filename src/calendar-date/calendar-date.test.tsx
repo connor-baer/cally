@@ -65,7 +65,7 @@ describe("CalendarDate", () => {
       await click(nextMonth);
       await click(nextMonth);
       await click(nextMonth);
-      await clickDay(month, "19 April");
+      await clickDay(month, "Sunday, 19 April");
 
       expect(spy.count).to.eq(1);
       expect(calendar.value).to.eq("2020-04-19");
@@ -80,7 +80,7 @@ describe("CalendarDate", () => {
 
       await click(getPrevPageButton(calendar));
       await click(getPrevPageButton(calendar));
-      await clickDay(month, "19 November");
+      await clickDay(month, "Tuesday, 19 November");
 
       expect(spy.count).to.eq(1);
       expect(calendar.value).to.eq("2019-11-19");
@@ -214,7 +214,7 @@ describe("CalendarDate", () => {
       const month = getMonth(calendar);
 
       await click(getPrevPageButton(calendar));
-      await clickDay(month, "31 December");
+      await clickDay(month, "Friday, 31 December");
 
       expect(spy.count).to.eq(1);
       const target = spy.last[0].target as InstanceType<typeof CalendarDate>;
@@ -248,14 +248,14 @@ describe("CalendarDate", () => {
       const month = getMonth(calendar);
 
       // try clicking a day outside the range
-      await clickDay(month, "1 February");
+      await clickDay(month, "Saturday, 1 February");
       await calendar.updated;
 
       expect(spy.count).to.eq(1);
       expect(calendar.value).to.eq("2020-02-01");
 
       // get the clicked day
-      const button = getDayButton(month, "1 February");
+      const button = getDayButton(month, "Saturday, 1 February");
       expect(getActiveElement()).to.eq(button);
       expect(button.tabIndex).to.eq(0);
     });
